@@ -2,6 +2,14 @@
 
 Yeelight Media Sync is a tool that synchronizes Yeelight bulb colors with the dominant color of the currently playing media's artwork on macOS.
 
+## Prerequisites
+
+Before running, you need to install [nowplaying-cli](https://github.com/kirtan-shah/nowplaying-cli) to retrieve the currently playing media information. You can install it using Homebrew:
+
+```sh
+brew install nowplaying-cli
+```
+
 ## Installation
 
 1. Clone the repository:
@@ -31,8 +39,9 @@ npm run get-thumbnail
 
 ## Dependencies
 
-- [colorthief](https://www.npmjs.com/package/colorthief) - A module to get the dominant color from an image.
-- [yeelight-awesome](https://www.npmjs.com/package/yeelight-awesome) - A library to control Yeelight devices.
+- [colorthief](https://www.npmjs.com/package/colorthief) - A NPM package to get the dominant color from an image.
+- [yeelight-awesome](https://www.npmjs.com/package/yeelight-awesome) - A NPM package to control Yeelight devices.
+- [nowplaying-cli](https://github.com/kirtan-shah/nowplaying-cli) - A macOS command-line utility to retrieve the artwork.
 
 ## License
 
