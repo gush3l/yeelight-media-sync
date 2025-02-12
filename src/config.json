@@ -1,0 +1,12 @@
+{
+    "pollingInterval": 1000,
+    "darkColorThreshold": 20,
+    "darkYellowColor": {
+      "red": 255,
+      "green": 223,
+      "blue": 0
+    },
+    "dimBrightness": 10,
+    "fullBrightness": 100,
+    "transitionDuration": 1000
+  }
