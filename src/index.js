@@ -32,16 +32,9 @@ async function updateLightColor() {
                 let color = new Color(primaryColor[0], primaryColor[1], primaryColor[2]);
                 logger.info(`Primary color: ${color.red}, ${color.green}, ${color.blue}`);
 
-                if (isDarkColor(color, config.darkColorThreshold)) {
-                    color = new Color(config.darkYellowColor.red, config.darkYellowColor.green, config.darkYellowColor.blue);
-                    logger.info(`Color is dark. Setting lights to dimmed dark yellow: ${color.red}, ${color.green}, ${color.blue}`);
-                    await Promise.all(Array.from(yeelights.values()).map(light => light.setBrightness(config.dimBrightness, config.transitionDuration)));
-                } else {
-                    logger.info(`Color is light. Setting lights to full brightness: ${color.red}, ${color.green}, ${color.blue}`);
-                    await Promise.all(Array.from(yeelights.values()).map(light => light.setBrightness(config.fullBrightness, config.transitionDuration)));
-                }
+                await updateLightColorBasedOnColor(color);
 
-                if (!previousColor || (color.red !== previousColor.red || color.green !== previousColor.green || color.blue !== previousColor.blue)) {
+                if (shouldUpdateColor.call(this, color)) {
                     previousColor = color;
                     await Promise.all(Array.from(yeelights.values()).map(light => light.setColor(color, config.transitionDuration)));
                 }
@@ -49,6 +42,21 @@ async function updateLightColor() {
         }
     } catch (error) {
         logger.error(`Error checking media: ${error}`);
+    }
+}
+
+function shouldUpdateColor(color) {
+    return !previousColor || (color.red !== previousColor.red || color.green !== previousColor.green || color.blue !== previousColor.blue);
+}
+
+async function updateLightColorBasedOnColor(color) {
+    if (isDarkColor(color, config.darkColorThreshold)) {
+        color = new Color(config.darkYellowColor.red, config.darkYellowColor.green, config.darkYellowColor.blue);
+        logger.info(`Color is dark. Setting lights to dimmed dark yellow: ${color.red}, ${color.green}, ${color.blue}`);
+        await Promise.all(Array.from(yeelights.values()).map(light => light.setBrightness(config.dimBrightness, config.transitionDuration)));
+    } else {
+        logger.info(`Color is light. Setting lights to full brightness: ${color.red}, ${color.green}, ${color.blue}`);
+        await Promise.all(Array.from(yeelights.values()).map(light => light.setBrightness(config.fullBrightness, config.transitionDuration)));
     }
 }
 
