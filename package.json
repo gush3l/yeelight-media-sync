@@ -1,6 +1,6 @@
 {
   "name": "yeelight-media-sync",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Synchronizes Yeelight bulb colors with the dominant color of the currently playing media's artwork on macOS.",
   "main": "src/index.js",
   "scripts": {
